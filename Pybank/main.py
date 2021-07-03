@@ -45,7 +45,6 @@ with open(csvpath) as csvfile:
         #update month_list
         month_list.append(row[0])
 
-
     #create a loop that calculates the change profit/loss from current month to the next month
     for i in range(len(profit_list)-1):
         diff=(float(profit_list[profit_counter+1]))-float(profit_list[profit_counter])
@@ -58,24 +57,18 @@ with open(csvpath) as csvfile:
     highest_month = var_list.index(greatest_inc)+1
     lowest_month = var_list.index(greatest_dec)+1
 
-    #print output in terminal
-    
-    print("Financial Analysis")
-    print("----------------------")
-    print(f"Total Months: {total_month}")
-    print(f"Total: {total_profit}")
-    print(f"Average Change: ${round(avg_change,2)}")
-    print(f"Greatest Increase in Profits: {month_list[highest_month]} (${int(greatest_inc)})")
-    print(f"Greatest Decrease in Profits: {month_list[lowest_month]} (${int(greatest_dec)})")
+    #create a variable for analysis outcome
+    analysis = ("Financial Analysis"
+        "\n----------------------"
+        f"\nTotal Months: {total_month}"
+        f"\nTotal: {total_profit}"
+        f"\nAverage Change: ${round(avg_change,2)}"
+        f"\nGreatest Increase in Profits: {month_list[highest_month]} (${int(greatest_inc)})"
+        f"\nGreatest Decrease in Profits: {month_list[lowest_month]} (${int(greatest_dec)})")
 
+    #print output in terminal
+    print(analysis)
 
     #print output into txt file
-    sys.stdout=open(output_path,"w")
-    print("Financial Analysis")
-    print("----------------------")
-    print(f"Total Months: {total_month}")
-    print(f"Total: {total_profit}")
-    print(f"Average Change: ${round(avg_change,2)}")
-    print(f"Greatest Increase in Profits: {month_list[highest_month]} (${int(greatest_inc)})")
-    print(f"Greatest Decrease in Profits: {month_list[lowest_month]} (${int(greatest_dec)})")    
-    sys.stdout.close()
+    with open(output_path,'w') as text_file:
+        text_file.write(analysis)

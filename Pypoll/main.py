@@ -53,26 +53,24 @@ with open(csvpath) as csvfile:
     winner_index = vote_counter.index(int(highest_vote))
     winner=candidate_list[winner_index]
 
-    #print the results in the terminal
-    print("Election Results")
-    print("-------------------------")
-    print(f"Total Votes: {total_votes}")
-    print("-------------------------")
-    for j in range(len(candidate_list)):
-        print(f"{str(candidate_list[j])}: {round(vote_counter[j]/total_votes*100,3)}% ({vote_counter[j]})")
-    print("-------------------------")
-    print(f"Winner: {winner}")
-    print("-------------------------")
+    #create variable to store election results
+    election_header= ("Election Results"
+    "\n-------------------------"
+    f"\nTotal Votes: {total_votes}"
+    "\n-------------------------")
+    election_outcome=("\n-------------------------"
+    f"\nWinner: {winner}"
+    "\n-------------------------")
 
-    #print output into txt file
-    sys.stdout=open(output_path,"w")
-    print("Election Results")
-    print("-------------------------")
-    print(f"Total Votes: {total_votes}")
-    print("-------------------------")
+    #print the results in the terminal
+    print(election_header)
     for j in range(len(candidate_list)):
         print(f"{str(candidate_list[j])}: {round(vote_counter[j]/total_votes*100,3)}% ({vote_counter[j]})")
-    print("-------------------------")
-    print(f"Winner: {winner}")
-    print("-------------------------")  
-    sys.stdout.close()
+    print(election_outcome)
+
+    #print the results into txt file
+    with open(output_path,'w') as text_file:    
+        text_file.write(election_header)
+        for j in range(len(candidate_list)):
+            text_file.write(f"\n{str(candidate_list[j])}: {round(vote_counter[j]/total_votes*100,3)}% ({vote_counter[j]})")
+        text_file.write(election_outcome)
